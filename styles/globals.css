@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+*{
+    margin : 0px;
+    padding : 0px;
+}
+
+@layer base{
+    body {
+        @apply overflow-x-hidden max-w-full text-base text-color-text
+    }
+    h1 {
+        @apply text-5xl font-bold
+    }    
+    h2 {
+        @apply text-4xl font-bold
+    }    
+    h3 {
+        @apply text-3xl font-bold
+    }    
+    h1 {
+        @apply text-2xl font-bold
+    }
+    h5 {
+        @apply text-xl font-bold
+    }
+}
+
+@layer components {
+    .container-page{
+        @apply max-w-[1500px] min-h-screen m-auto p-4
+    }
+}
+
+@layer utilities{
+    .p-large{
+
+    }
+
+    .p-medium{
+
+    }
+
+    .p-small{
+
+    }
+
+    ::-webkit-scrollbar{
+        @apply w-2
+    }
+    ::-webkit-scrollbar-track {
+        border-radius: 0px;
+        background:white;
+    }
+    ::-webkit-scrollbar-thumb {
+        @apply  bg-color-theme-2.1 
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        @apply bg-color-theme-2
+    }
+    .scrollbar-hidden::-webkit-scrollbar{
+        display: none
+    }
+
+}

@@ -1,43 +1,34 @@
 import Button from '@atoms/Button';
-import Input from '@atoms/Input'
-import React, { useState } from 'react'
-import { useForm } from 'react-hook-form';
-import * as yup from "yup"
-import {yupResolver} from "@hookform/resolvers/yup"
+import Input from '@atoms/Input';
 import { EnvelopeIcon, LockClosedIcon, PhoneIcon, UserIcon } from '@heroicons/react/24/outline';
+import { yupResolver } from "@hookform/resolvers/yup";
+import { validation } from '@lib/data';
+import { useForm } from 'react-hook-form';
+import * as yup from "yup";
 
-type Props = {
-
-}
+type Props = {}
 
 const styles = {
   iconInput : "h-4"
 }
 const FormAuth = (props: Props) => {
-  const schema = yup.object().shape({
-    name : yup.string().required("Please enter your name"),
-    email : yup.string().email("Your email dosent valid").required("Please enter your email"),
-    password :yup.string().required("Please enter your password").matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-        "Must Contain minimal 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
-      ),
-      agreement : yup.bool().oneOf([true],"Please accept this agreement")
-      .required("Please accept this agreement"),
-    confirmPassword : yup.string().oneOf([yup.ref("password")]).required("Please enter your confirm password"),
-    phone : yup.string().required("Please enter your phone number")
-            .matches(/^628[0-9]{9,13}$/,"Your phone number is invalid")
-  })
-  const initialStateForm = {
-    name : '',
-    email : '',
-    password : '',
-    confirmPassword : '',
-    agreement:false,
-    phone : '',
-  }
   const {register, handleSubmit, formState:{errors}} = useForm<TFormAuth>({
-    defaultValues : initialStateForm,
-    resolver: yupResolver(schema)
+    defaultValues :{
+      name : '',
+      email : '',
+      password : '',
+      confirmPassword : '',
+      agreement:false,
+      phone : '',
+    },
+    resolver: yupResolver(yup.object().shape({
+      name : validation.name,
+      email : validation.name,
+      password : validation.password,
+      confirmPassword : validation.confirmPassword,
+      agreement:validation.agreement,
+      phone : validation.phone,
+    }))
   })
 
   const handleOnsubmit = (data:TFormAuth)=>{
